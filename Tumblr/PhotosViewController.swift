@@ -10,10 +10,12 @@ import UIKit
 import AlamofireImage
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     var posts: [[String: Any]] = []
     
     @IBOutlet weak var tableView: UITableView!
+    //var image: UIIamge!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,5 +63,14 @@ func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> 
     
         return cell
         }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as! PhototDetailsViewController
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell) {
+            let post = posts[(indexPath.row)]
+            vc.posts = post
+        }
+    }
 }
 
